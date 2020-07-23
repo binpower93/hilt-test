@@ -1,5 +1,6 @@
 package com.github.binpower93.hilttest.ui.posts
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.github.binpower93.hilttest.R
@@ -46,6 +47,7 @@ class PostsViewModel : BaseViewModel() {
     }
 
     private fun onRetrievePostListSuccess(posts: List<Post?>) {
+        Log.d("PostsVM", "$posts")
         postsAdapter.update(posts.filterNotNull())
     }
 

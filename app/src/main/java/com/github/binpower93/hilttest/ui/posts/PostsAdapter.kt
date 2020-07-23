@@ -1,5 +1,6 @@
 package com.github.binpower93.hilttest.ui.posts
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -36,6 +37,7 @@ class PostsAdapter: RecyclerView.Adapter<PostsAdapter.BaseHolder>() {
     override fun getItemId(position: Int) = data[position].id.hashCode().toLong()
 
     fun update(newData: List<Post>) {
+        Log.d("PostsVM", "$newData")
         diffUtil.submitList(newData)
     }
 
@@ -45,6 +47,7 @@ class PostsAdapter: RecyclerView.Adapter<PostsAdapter.BaseHolder>() {
 
     class PostHolder(private val binding: PostListItemBinding): BaseHolder(binding) {
         override fun bind(item: Post) {
+            Log.d("Bind", "$item")
             binding.post = item
         }
     }

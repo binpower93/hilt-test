@@ -8,25 +8,25 @@ class PostTest : TestCase() {
         val post = Post(
             id = "test-id",
             title = "Test Title",
-            contents = "Test Content"
+            content = "Test Content"
         )
 
         assertEquals("test-id", post.id)
         assertEquals("Test Title", post.title)
-        assertEquals("Test Content", post.contents)
+        assertEquals("Test Content", post.content)
     }
 
     fun testThatTwoPostsWithTheSamePropertiesAreEqual() {
         val post1 = Post(
             id = "test-id",
             title = "Test Title",
-            contents = "Test Content"
+            content = "Test Content"
         )
 
         val post2 = Post(
             id = "test-id",
             title = "Test Title",
-            contents = "Test Content"
+            content = "Test Content"
         )
 
         assertEquals(post1, post2)
@@ -36,13 +36,13 @@ class PostTest : TestCase() {
         val post1 = Post(
             id = "test-id",
             title = "Test Title",
-            contents = "Test Content"
+            content = "Test Content"
         )
 
         val post2 = Post(
             id = "test-id",
             title = "Test Title",
-            contents = "Test Content"
+            content = "Test Content"
         )
 
         assertEquals(post1.hashCode(), post2.hashCode())
