@@ -19,10 +19,19 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Firebase Test Lab Action
-      uses: asadmansr/Firebase-Test-Lab-Action@v1.0
-      with:
-      # a YAML formatted file that includes arguments for gcloud firebase test run command.
-        arg-spec: tests.yml
-      env:
-        SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository
+      - uses: actions/checkout@v2
+
+      # Run the Firebase Test Lab Action
+      - name: Run tests on Firebase Test Lab
+        uses: asadmansr/Firebase-Test-Lab-Action@v1.0
+        with:
+          arg-spec: 'tests.yml:android-pixel-4'
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+      
+      - name: Unit Tests
+        run: ./gradlew build
