@@ -38,6 +38,8 @@ class PostsFragment : Fragment() {
                 hideError()
             }
         })
+
+        binding.posts.adapter = viewModel.postsAdapter
     }
 
     private fun showError(@StringRes errorRes: Int) {

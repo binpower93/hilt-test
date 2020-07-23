@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface PostApi {
 
     @GET("/posts.json")
-    fun getPosts(): Observable<List<Post>>
+    fun getPosts(): Observable<List<Post?>>
 }

@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.github.binpower93.hilttest.R
 import com.github.binpower93.hilttest.core.BaseViewModel
+import com.github.binpower93.hilttest.model.Post
 import com.github.binpower93.hilttest.model.network.PostApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -16,7 +17,9 @@ class PostsViewModel : BaseViewModel() {
 
     val loadingVisibility = MutableLiveData<Int>()
     val errorMessage = MutableLiveData<Int>()
+
     val errorRetryListener = View.OnClickListener { loadPosts() }
+    val postsAdapter = PostsAdapter()
 
     init {
         loadPosts()
@@ -29,9 +32,8 @@ class PostsViewModel : BaseViewModel() {
             .doOnSubscribe { onRetrievePostListStart() }
             .doOnTerminate { onRetrievePostListFinish() }
             .subscribe(
-                { onRetrievePostListSuccess() },
-                { onRetrievePostListError() }
-            )
+                this::onRetrievePostListSuccess
+            ) { onRetrievePostListError() }
     }
 
     private fun onRetrievePostListStart() {
@@ -43,8 +45,8 @@ class PostsViewModel : BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrievePostListSuccess() {
-
+    private fun onRetrievePostListSuccess(posts: List<Post?>) {
+        postsAdapter.update(posts.filterNotNull())
     }
 
     private fun onRetrievePostListError() {
