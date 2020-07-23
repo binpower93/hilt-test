@@ -1,6 +1,6 @@
 package com.github.binpower93.hilttest.di
 
-import com.github.binpower93.hilttest.ui.main.PostsViewModel
+import com.github.binpower93.hilttest.ui.posts.PostsViewModel
 import dagger.Component
 import javax.inject.Singleton
 

@@ -2,7 +2,7 @@ package com.github.binpower93.hilttest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.github.binpower93.hilttest.ui.main.PostsFragment
+import com.github.binpower93.hilttest.ui.posts.PostsFragment
 
 class MainActivity : AppCompatActivity() {
 

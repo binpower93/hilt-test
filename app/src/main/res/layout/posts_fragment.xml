@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.github.binpower93.hilttest.ui.main.PostsViewModel" />
+            type="com.github.binpower93.hilttest.ui.posts.PostsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.PostsFragment">
+        tools:context=".ui.posts.PostsFragment">
 
         <ProgressBar
             android:id="@+id/progress"

@@ -1,4 +1,4 @@
-package com.github.binpower93.hilttest.ui.main
+package com.github.binpower93.hilttest.ui.posts
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
