@@ -2,6 +2,7 @@ package com.github.binpower93.hilttest.ui.main
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.github.binpower93.hilttest.R
 import com.github.binpower93.hilttest.core.BaseViewModel
 import com.github.binpower93.hilttest.model.network.PostApi
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,6 +15,8 @@ class PostsViewModel : BaseViewModel() {
     private lateinit var subscription: Disposable
 
     val loadingVisibility = MutableLiveData<Int>()
+    val errorMessage = MutableLiveData<Int>()
+    val errorRetryListener = View.OnClickListener { loadPosts() }
 
     init {
         loadPosts()
@@ -33,6 +36,7 @@ class PostsViewModel : BaseViewModel() {
 
     private fun onRetrievePostListStart() {
         loadingVisibility.value = View.VISIBLE
+        errorMessage.value = null
     }
 
     private fun onRetrievePostListFinish() {
@@ -44,7 +48,7 @@ class PostsViewModel : BaseViewModel() {
     }
 
     private fun onRetrievePostListError() {
-
+        errorMessage.value = R.string.posts_error
     }
 
     override fun onCleared() {
