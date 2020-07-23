@@ -1,30 +1,32 @@
 package com.github.binpower93.hilttest.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.binpower93.hilttest.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.github.binpower93.hilttest.databinding.PostsFragmentBinding
 
 class PostsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = PostsFragment()
-    }
-
+    private lateinit var binding: PostsFragmentBinding
     private lateinit var viewModel: PostsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.posts_fragment, container, false)
+        binding = PostsFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PostsViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.viewModel = viewModel
     }
 
+    companion object {
+        fun newInstance() = PostsFragment()
+    }
 }
