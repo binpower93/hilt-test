@@ -1,7 +1,10 @@
 package com.github.binpower93.hilttest.ui.main
 
 import androidx.lifecycle.ViewModel
+import com.github.binpower93.hilttest.core.BaseViewModel
+import com.github.binpower93.hilttest.model.network.PostApi
+import javax.inject.Inject
 
-class PostsViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class PostsViewModel : BaseViewModel() {
+    @Inject lateinit var postApi: PostApi
 }
