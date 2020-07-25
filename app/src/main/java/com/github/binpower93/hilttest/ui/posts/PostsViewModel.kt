@@ -1,12 +1,12 @@
 package com.github.binpower93.hilttest.ui.posts
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.github.binpower93.hilttest.R
 import com.github.binpower93.hilttest.core.BaseViewModel
 import com.github.binpower93.hilttest.model.Post
 import com.github.binpower93.hilttest.model.network.PostApi
+import com.github.binpower93.hilttest.utils.AUTO_LOAD_POSTS
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +23,9 @@ class PostsViewModel : BaseViewModel() {
     val postsAdapter = PostsAdapter()
 
     init {
-        loadPosts()
+        if(AUTO_LOAD_POSTS) {
+            loadPosts()
+        }
     }
 
     private fun loadPosts() {
@@ -37,22 +39,25 @@ class PostsViewModel : BaseViewModel() {
             ) { onRetrievePostListError() }
     }
 
-    private fun onRetrievePostListStart() {
+    fun onRetrievePostListStart() {
         loadingVisibility.value = View.VISIBLE
-        errorMessage.value = null
+        clearErrorMessage()
     }
 
-    private fun onRetrievePostListFinish() {
+    fun onRetrievePostListFinish() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrievePostListSuccess(posts: List<Post?>) {
-        Log.d("PostsVM", "$posts")
+    fun onRetrievePostListSuccess(posts: List<Post?>) {
         postsAdapter.update(posts.filterNotNull())
     }
 
-    private fun onRetrievePostListError() {
+    fun onRetrievePostListError() {
         errorMessage.value = R.string.posts_error
+    }
+
+    fun clearErrorMessage() {
+        errorMessage.value = null
     }
 
     override fun onCleared() {
