@@ -1,6 +1,5 @@
 package com.github.binpower93.hilttest.ui.newnote
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
@@ -22,6 +21,7 @@ class NewNoteViewModel: BaseViewModel() {
 
     val savingVisibility = MutableLiveData<Int>()
     val errorMessage = MutableLiveData<Int>()
+    val success = MutableLiveData<Unit>()
 
     val title = MutableLiveData<String>()
     val content = MutableLiveData<String>()
@@ -71,7 +71,7 @@ class NewNoteViewModel: BaseViewModel() {
     }
 
     private fun onSaveSuccess() {
-        Log.d("NewNote", "success")
+        success.value = Unit
     }
 
     private fun onSaveFailed() {
@@ -84,5 +84,15 @@ class NewNoteViewModel: BaseViewModel() {
 
     private fun onSaveStarted() {
         savingVisibility.value = View.VISIBLE
+        clearErrorMessage()
+    }
+
+    private fun clearErrorMessage() {
+        errorMessage.value = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        subscription?.dispose()
     }
 }
