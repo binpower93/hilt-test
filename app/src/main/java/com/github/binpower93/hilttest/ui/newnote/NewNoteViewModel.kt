@@ -34,5 +34,4 @@ class NewNoteViewModel: BaseViewModel() {
     }.asLiveData()
 
 
-
 }
