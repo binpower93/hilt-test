@@ -3,6 +3,7 @@ package com.github.binpower93.hilttest.core
 import androidx.lifecycle.ViewModel
 import com.github.binpower93.hilttest.di.DaggerViewModelInjector
 import com.github.binpower93.hilttest.di.NetworkModule
+import com.github.binpower93.hilttest.ui.newnote.NewNoteViewModel
 import com.github.binpower93.hilttest.ui.posts.PostsViewModel
 
 abstract class BaseViewModel: ViewModel() {
@@ -20,6 +21,7 @@ abstract class BaseViewModel: ViewModel() {
     private fun inject() {
         when(this) {
             is PostsViewModel -> injector.inject(this)
+            is NewNoteViewModel -> injector.inject(this)
         }
     }
 }

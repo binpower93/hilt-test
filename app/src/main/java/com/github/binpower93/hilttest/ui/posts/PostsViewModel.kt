@@ -31,6 +31,8 @@ class PostsViewModel : BaseViewModel() {
 
         subscription = postApi.getPosts()
             .subscribeOn(Schedulers.io())
+            .map { it.values.toList() }
+            .doOnError { onRetrievePostListError() }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { onRetrievePostListStart() }
             .doOnTerminate { onRetrievePostListFinish() }
