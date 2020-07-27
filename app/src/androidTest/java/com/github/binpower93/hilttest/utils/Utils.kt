@@ -6,8 +6,12 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.remote.annotation.RemoteMsgConstructor
+import androidx.test.espresso.remote.annotation.RemoteMsgField
+import com.google.android.material.textfield.TextInputLayout
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers
 
 
 /**
@@ -43,4 +47,55 @@ fun atPosition(position: Int, itemMatcher: Matcher<View?>): Matcher<View?>? {
             return itemMatcher.matches(viewHolder.itemView)
         }
     }
+}
+
+fun hasNoErrorText(): Matcher<View?>? {
+    return object : BoundedMatcher<View?, TextInputLayout>(TextInputLayout::class.java) {
+        override fun describeTo(description: Description) {
+            description.appendText("has no error text: ")
+        }
+
+        override fun matchesSafely(view: TextInputLayout): Boolean {
+            return view.error == null
+        }
+    }
+}
+
+
+/**
+ * Returns a matcher that matches [EditText] based on edit text error string value.
+ *
+ *
+ * **Note:** View's error property can be `null`, to match against it use `
+ * hasErrorText(nullValue(String.class)`
+ */
+fun hasErrorText(stringMatcher: Matcher<String>?): Matcher<View?>? {
+    return HasErrorTextMatcher(checkNotNull(stringMatcher))
+}
+
+/**
+ * Returns a matcher that matches [EditText] based on edit text error string value.
+ *
+ *
+ * Note: Sugar for `hasErrorText(is("string"))`.
+ */
+fun hasErrorText(expectedError: String): Matcher<View?>? {
+    return hasErrorText(Matchers.`is`(expectedError))
+}
+
+internal class HasErrorTextMatcher @RemoteMsgConstructor constructor(
+    @field:RemoteMsgField(
+        order = 0
+    ) private val stringMatcher: Matcher<String>
+) :
+    BoundedMatcher<View?, TextInputLayout>(TextInputLayout::class.java) {
+    override fun describeTo(description: Description) {
+        description.appendText("with error: ")
+        stringMatcher.describeTo(description)
+    }
+
+    override fun matchesSafely(view: TextInputLayout): Boolean {
+        return stringMatcher.matches(view.error)
+    }
+
 }

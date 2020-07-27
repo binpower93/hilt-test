@@ -8,11 +8,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.github.binpower93.hilttest.R
+import com.github.binpower93.hilttest.utils.hasNoErrorText
 import com.github.binpower93.hilttest.utils.waitFor
 import org.hamcrest.core.IsNot.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.github.binpower93.hilttest.utils.hasErrorText as hasTILErrorText
 
 
 @LargeTest
@@ -35,11 +37,13 @@ class NewNoteActivityTest {
         onView(withId(R.id.noteTitleText)).perform(replaceText(""))
         onView(withId(R.id.noteContentText)).perform(replaceText(""))
 
+        onView(isRoot()).perform(waitFor(100))
+
         onView(withId(R.id.save)).check(matches(not(isEnabled())))
 
         onView(withId(R.id.noteTitle)).check(
             matches(
-                hasErrorText(
+                hasTILErrorText(
                     mActivityRule.activity.getString(R.string.error_title_needed)
                 )
             )
@@ -47,7 +51,7 @@ class NewNoteActivityTest {
 
         onView(withId(R.id.noteContent)).check(
             matches(
-                hasErrorText(
+                hasTILErrorText(
                     mActivityRule.activity.getString(R.string.error_content_needed)
                 )
             )
@@ -59,17 +63,19 @@ class NewNoteActivityTest {
         onView(withId(R.id.noteTitleText)).perform(replaceText(""))
         onView(withId(R.id.noteContentText)).perform(replaceText("Valid Text"))
 
+        onView(isRoot()).perform(waitFor(100))
+
         onView(withId(R.id.save)).check(matches(not(isEnabled())))
 
         onView(withId(R.id.noteTitle)).check(
             matches(
-                hasErrorText(
-                    mActivityRule.activity.getString(R.string.error_content_needed)
+                hasTILErrorText(
+                    mActivityRule.activity.getString(R.string.error_title_needed)
                 )
             )
         )
 
-        onView(withId(R.id.noteContent)).check(matches(hasErrorText("")))
+        onView(withId(R.id.noteContent)).check(matches(hasNoErrorText()))
     }
 
     @Test
@@ -77,13 +83,15 @@ class NewNoteActivityTest {
         onView(withId(R.id.noteTitleText)).perform(replaceText("Valid Text"))
         onView(withId(R.id.noteContentText)).perform(replaceText(""))
 
+        onView(isRoot()).perform(waitFor(100))
+
         onView(withId(R.id.save)).check(matches(not(isEnabled())))
-        onView(withId(R.id.noteTitle)).check(matches(hasErrorText("")))
+        onView(withId(R.id.noteTitle)).check(matches(hasNoErrorText()))
 
         onView(withId(R.id.noteContent)).check(
             matches(
-                hasErrorText(
-                    mActivityRule.activity.getString(R.string.error_title_needed)
+                hasTILErrorText(
+                    mActivityRule.activity.getString(R.string.error_content_needed)
                 )
             )
         )
@@ -98,7 +106,9 @@ class NewNoteActivityTest {
         onView(isRoot()).perform(waitFor(100))
 
         onView(withId(R.id.save)).check(matches(isEnabled()))
-        onView(withId(R.id.noteTitle)).check(matches(hasErrorText("")))
-        onView(withId(R.id.noteContent)).check(matches(hasErrorText("")))
+
+        onView(withId(R.id.noteTitle)).check(matches(hasNoErrorText()))
+
+        onView(withId(R.id.noteContent)).check(matches(hasNoErrorText()))
     }
 }
