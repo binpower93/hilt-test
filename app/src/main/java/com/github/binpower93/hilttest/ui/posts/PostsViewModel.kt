@@ -7,7 +7,6 @@ import com.github.binpower93.hilttest.R
 import com.github.binpower93.hilttest.core.BaseViewModel
 import com.github.binpower93.hilttest.model.Post
 import com.github.binpower93.hilttest.model.network.PostApi
-import com.github.binpower93.hilttest.utils.AUTO_LOAD_POSTS
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 class PostsViewModel : BaseViewModel() {
     @Inject lateinit var postApi: PostApi
-    private lateinit var subscription: Disposable
+    private var subscription: Disposable? = null
 
     val loadingVisibility = MutableLiveData<Int>()
     val errorMessage = MutableLiveData<Int>()
@@ -23,14 +22,13 @@ class PostsViewModel : BaseViewModel() {
     val errorRetryListener = View.OnClickListener { loadPosts() }
     val postsAdapter = PostsAdapter()
 
-    init {
-        if(AUTO_LOAD_POSTS) {
-            loadPosts()
-        }
-    }
-
-    private fun loadPosts() {
+    fun loadPosts() {
         Log.d("PVM", "loadPosts")
+
+        if(subscription?.isDisposed == false) {
+            subscription?.dispose()
+        }
+
         subscription = postApi.getPosts()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -69,6 +67,6 @@ class PostsViewModel : BaseViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        subscription.dispose()
+        subscription?.dispose()
     }
 }

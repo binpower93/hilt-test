@@ -17,6 +17,10 @@ class PostsActivity : AppCompatActivity() {
 
     private var errorSnackbar: Snackbar? = null
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.loadPosts()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

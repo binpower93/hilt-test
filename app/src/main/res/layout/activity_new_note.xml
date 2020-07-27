@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/noteTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@={viewModel.title}"/>
@@ -49,6 +50,7 @@
             app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/noteContentText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="5"/>
