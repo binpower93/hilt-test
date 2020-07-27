@@ -33,6 +33,9 @@ class PostsActivityTest {
 
     @Test
     fun testThatPassing3PostsShows3PostsWithTheCorrectValues() {
+        // Wait for the network to complete with auto loading feed
+        onView(isRoot()).perform(waitFor(1000))
+
         mActivityRule.runOnUiThread {
             mActivityRule.activity.viewModel.onRetrievePostListSuccess(
                 listOf(
@@ -55,14 +58,15 @@ class PostsActivityTest {
             )
         }
 
-        onView(isRoot()).perform(waitFor(100))
+        onView(isRoot()).perform(waitFor(500))
 
-        onView(withId(R.id.posts)).check(
-            matches(
-                allOf(
-                    isCompletelyDisplayed(),
-                    hasChildCount(3),
-                    atPosition(0,
+        onView(withId(R.id.posts))
+            .check(matches(isCompletelyDisplayed()))
+            .check(matches(hasChildCount(3)))
+            .check(
+                matches(
+                    atPosition(
+                        0,
                         allOf(
                             hasDescendant(
                                 allOf(
@@ -77,8 +81,13 @@ class PostsActivityTest {
                                 )
                             )
                         )
-                    ),
-                    atPosition(1,
+                    )
+                )
+            )
+            .check(
+                matches(
+                    atPosition(
+                        1,
                         allOf(
                             hasDescendant(
                                 allOf(
@@ -93,8 +102,13 @@ class PostsActivityTest {
                                 )
                             )
                         )
-                    ),
-                    atPosition(2,
+                    )
+                )
+            )
+            .check(
+                matches(
+                    atPosition(
+                        2,
                         allOf(
                             hasDescendant(
                                 allOf(
@@ -112,14 +126,18 @@ class PostsActivityTest {
                     )
                 )
             )
-        )
     }
 
     @Test
     fun testThatWhenToggleTheLoadingIndicatorTheProgressBarBehavesAsExpected() {
+        // Wait for the network to complete with auto loading feed
+        onView(isRoot()).perform(waitFor(1000))
+
         mActivityRule.runOnUiThread {
             mActivityRule.activity.viewModel.onRetrievePostListStart()
         }
+
+        onView(isRoot()).perform(waitFor(100))
 
         onView(withId(R.id.posts)).check(matches(isDisplayed()))
         onView(withId(R.id.progress)).check(matches(isCompletelyDisplayed()))
