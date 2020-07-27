@@ -4,4 +4,6 @@
     <string name="common_retry">Retry</string>
 
     <string name="posts_error">An error occurred while loading the posts</string>
+    <string name="error_title_needed">A title is needed</string>
+    <string name="error_content_needed">Some content is needed</string>
 </resources>
