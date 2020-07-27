@@ -1,5 +1,6 @@
 package com.github.binpower93.hilttest.ui.posts
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.github.binpower93.hilttest.R
@@ -29,6 +30,7 @@ class PostsViewModel : BaseViewModel() {
     }
 
     private fun loadPosts() {
+        Log.d("PVM", "loadPosts")
         subscription = postApi.getPosts()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -40,23 +42,28 @@ class PostsViewModel : BaseViewModel() {
     }
 
     fun onRetrievePostListStart() {
+        Log.d("PVM", "onRetrievePostListStart")
         loadingVisibility.value = View.VISIBLE
         clearErrorMessage()
     }
 
     fun onRetrievePostListFinish() {
+        Log.d("PVM", "onRetrievePostListFinish")
         loadingVisibility.value = View.GONE
     }
 
     fun onRetrievePostListSuccess(posts: List<Post?>) {
+        Log.d("PVM", "onRetrievePostListSuccess")
         postsAdapter.update(posts.filterNotNull())
     }
 
     fun onRetrievePostListError() {
+        Log.d("PVM", "onRetrievePostListError")
         errorMessage.value = R.string.posts_error
     }
 
     fun clearErrorMessage() {
+        Log.d("PVM", "clearErrorMessage")
         errorMessage.value = null
     }
 
