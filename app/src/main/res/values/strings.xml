@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HiltTest</string>
+
+    <string name="common_retry">Retry</string>
+
+    <string name="posts_error">An error occurred while loading the posts</string>
 </resources>
