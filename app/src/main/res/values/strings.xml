@@ -8,4 +8,6 @@
     <string name="error_content_needed">Some content is needed</string>
     <string name="common_save">Save</string>
     <string name="error_failed_to_save">Failed to save</string>
+    <string name="note_content">Note Content</string>
+    <string name="note_title">Note Title</string>
 </resources>
