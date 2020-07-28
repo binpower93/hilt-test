@@ -55,6 +55,8 @@ class PostsActivityTest {
 
         onView(isRoot()).perform(waitFor(500))
 
+        onView(withId(R.id.emptyState)).check(matches(not(isDisplayed())))
+
         onView(withId(R.id.posts))
             .check(matches(isCompletelyDisplayed()))
             .check(matches(hasChildCount(3)))
@@ -164,5 +166,22 @@ class PostsActivityTest {
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(doesNotExist())
+    }
+    @Test
+    fun testThatPassingNoPostsShowsEmptyState() {
+        // Wait for the network to complete with auto loading feed
+        onView(isRoot()).perform(waitFor(1000))
+
+        mActivityRule.runOnUiThread {
+            mActivityRule.activity.viewModel.onRetrievePostListSuccess(listOf())
+        }
+
+        onView(isRoot()).perform(waitFor(500))
+
+        onView(withId(R.id.emptyState)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.posts))
+            .check(matches(isCompletelyDisplayed()))
+            .check(matches(hasChildCount(0)))
     }
 }

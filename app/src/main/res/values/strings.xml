@@ -11,4 +11,6 @@
     <string name="note_content">Note Content</string>
     <string name="note_title">Note Title</string>
     <string name="new_note">New Note</string>
+    <string name="empty_state_title">Welcome to the notes app</string>
+    <string name="empty_state_description">To add your first note click on the NEW NOTE button below</string>
 </resources>
