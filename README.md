@@ -3,8 +3,11 @@
 ## Development Setup
 
 **Android Studio**: 4.2 Canary 4
+
 **Min SDK**: 21 (5.0)
+
 **Target & Compile SDK**: 30
+
 **Kotlin Version**: 1.3.72
 
 ## Api
