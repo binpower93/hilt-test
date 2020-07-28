@@ -53,5 +53,6 @@ Example Response:
     }
 ```
 
+## Known Problems
 * Due the api returning `null` instead of `{}`, the api doesn't isn't initialised in the empty state
 * Sometimes tests involving the feed may fail as the feed auto loads, and therefore causes a race condition
