@@ -71,6 +71,10 @@ class NewNoteViewModel: BaseViewModel() {
             )
     }
 
+    init {
+        savingVisibility.value = View.GONE
+    }
+
     fun onSaveSuccess() {
         success.value = Unit
     }

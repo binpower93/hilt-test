@@ -39,6 +39,7 @@ class NewNoteActivityTest {
                 )
             )
         )
+        onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
     }
 
     @Test

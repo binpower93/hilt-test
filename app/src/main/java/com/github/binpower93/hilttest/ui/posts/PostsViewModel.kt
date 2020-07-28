@@ -18,6 +18,7 @@ class PostsViewModel : BaseViewModel() {
 
     val loadingVisibility = MutableLiveData<Int>()
     val errorMessage = MutableLiveData<Int>()
+    val emptyStateVisibility = MutableLiveData<Int>()
 
     val errorRetryListener = View.OnClickListener { loadPosts() }
     val postsAdapter = PostsAdapter()
@@ -31,7 +32,7 @@ class PostsViewModel : BaseViewModel() {
 
         subscription = postApi.getPosts()
             .subscribeOn(Schedulers.io())
-            .map { it.values.toList() }
+            .map { it?.values?.toList().orEmpty() }
             .doOnError { onRetrievePostListError() }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { onRetrievePostListStart() }
@@ -42,28 +43,25 @@ class PostsViewModel : BaseViewModel() {
     }
 
     fun onRetrievePostListStart() {
-        Log.d("PVM", "onRetrievePostListStart")
         loadingVisibility.value = View.VISIBLE
         clearErrorMessage()
     }
 
     fun onRetrievePostListFinish() {
-        Log.d("PVM", "onRetrievePostListFinish")
         loadingVisibility.value = View.GONE
     }
 
     fun onRetrievePostListSuccess(posts: List<Post?>) {
-        Log.d("PVM", "onRetrievePostListSuccess")
-        postsAdapter.update(posts.filterNotNull())
+        val newData = posts.filterNotNull()
+        postsAdapter.update(newData)
+        emptyStateVisibility.value = if(newData.isEmpty()) View.VISIBLE else View.GONE
     }
 
     fun onRetrievePostListError() {
-        Log.d("PVM", "onRetrievePostListError")
         errorMessage.value = R.string.posts_error
     }
 
     fun clearErrorMessage() {
-        Log.d("PVM", "clearErrorMessage")
         errorMessage.value = null
     }
 

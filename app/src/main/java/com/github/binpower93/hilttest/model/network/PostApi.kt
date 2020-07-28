@@ -9,7 +9,7 @@ import retrofit2.http.POST
 interface PostApi {
 
     @GET("/posts.json")
-    fun getPosts(): Observable<Map<String, Post>>
+    fun getPosts(): Observable<Map<String, Post>?>
 
     @POST("/posts.json")
     fun insertPost(@Body post: Post): Observable<Map<String, String>>

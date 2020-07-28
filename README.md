@@ -52,3 +52,8 @@ Example Response:
         "name": "-MDGCMeN0gbxr0r4rrEN"
     }
 ```
+
+## Known Problems
+
+* Due the api returning `null` instead of `{}`, the api doesn't isn't initialised in the empty state
+
