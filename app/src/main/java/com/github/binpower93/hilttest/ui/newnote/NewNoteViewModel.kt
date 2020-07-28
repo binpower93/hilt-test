@@ -20,6 +20,7 @@ class NewNoteViewModel: BaseViewModel() {
     @Inject lateinit var postApi: PostApi
 
     val savingVisibility = MutableLiveData<Int>()
+    val saveVisibility = savingVisibility.map { if(it == View.GONE) View.VISIBLE else View.GONE }
     val errorMessage = MutableLiveData<Int>()
     val success = MutableLiveData<Unit>()
 
@@ -70,24 +71,24 @@ class NewNoteViewModel: BaseViewModel() {
             )
     }
 
-    private fun onSaveSuccess() {
+    fun onSaveSuccess() {
         success.value = Unit
     }
 
-    private fun onSaveFailed() {
+    fun onSaveFailed() {
         errorMessage.value = R.string.error_failed_to_save
     }
 
-    private fun onSaveFinished() {
+    fun onSaveFinished() {
         savingVisibility.value = View.GONE
     }
 
-    private fun onSaveStarted() {
+    fun onSaveStarted() {
         savingVisibility.value = View.VISIBLE
         clearErrorMessage()
     }
 
-    private fun clearErrorMessage() {
+    fun clearErrorMessage() {
         errorMessage.value = null
     }
 

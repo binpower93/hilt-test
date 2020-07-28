@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 class NewNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: NewNoteActivityBinding
-    private lateinit var viewModel: NewNoteViewModel
+    lateinit var viewModel: NewNoteViewModel
 
     private var errorSnackbar: Snackbar? = null
 
@@ -51,7 +51,7 @@ class NewNoteActivity : AppCompatActivity() {
     }
 
     private fun showError(@StringRes errorRes: Int) {
-        errorSnackbar = Snackbar.make(binding.root, errorRes, Snackbar.LENGTH_SHORT)
+        errorSnackbar = Snackbar.make(binding.root, errorRes, Snackbar.LENGTH_LONG)
             .apply { show() }
     }
 

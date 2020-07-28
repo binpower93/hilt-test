@@ -160,7 +160,7 @@ class PostsActivityTest {
             mActivityRule.activity.viewModel.clearErrorMessage()
         }
 
-        onView(isRoot()).perform(waitFor(500))
+        onView(isRoot()).perform(waitFor(250))
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(doesNotExist())
