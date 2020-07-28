@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HiltTest">
+        <activity android:name=".ui.newnote.NewNoteActivity"></activity>
         <activity android:name=".ui.posts.PostsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
