@@ -32,7 +32,7 @@ class PostsViewModel : BaseViewModel() {
 
         subscription = postApi.getPosts()
             .subscribeOn(Schedulers.io())
-            .map { it.values.toList() }
+            .map { it?.values?.toList().orEmpty() }
             .doOnError { onRetrievePostListError() }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { onRetrievePostListStart() }
