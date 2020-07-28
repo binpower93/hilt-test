@@ -3,8 +3,11 @@
 ## Development Setup
 
 **Android Studio**: 4.0.1 (although developed in 4.2 Canary 4)
+
 **Min SDK**: 21 (5.0)
+
 **Target & Compile SDK**: 30
+
 **Kotlin Version**: 1.3.72
 
 ## Api
@@ -49,8 +52,6 @@ Example Response:
         "name": "-MDGCMeN0gbxr0r4rrEN"
     }
 ```
-
-## Known Problems
 
 * Due the api returning `null` instead of `{}`, the api doesn't isn't initialised in the empty state
 * Sometimes tests involving the feed may fail as the feed auto loads, and therefore causes a race condition
